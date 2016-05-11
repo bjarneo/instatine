@@ -1,0 +1,41 @@
+{
+  "name": "instatine",
+  "version": "0.1.0",
+  "description": "Instagram to electron port",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron main.js",
+    "lint": "eslint .",
+    "build": "npm run build:linux && npm run build:windows",
+    "build:linux": "NODE_ENV=production electron-packager . --overwrite --asar --out=dist --prune --platform=linux --arch=x64 --app-bundle-id=com.bjarneoeverli.instatine --app-version=$npm_package_version && cd dist/instatine-linux-x64/ && zip -ryq9 ../instatine-linux-${npm_package_version}.zip *",
+    "build:windows": "NODE_ENV=production electron-packager . --overwrite --asar --out=dist --ignore='^/media/(?!Icon.*ico$).*' --prune --platform=win32 --arch=ia32 --icon=media/Icon.ico --version-string.ProductName=$npm_package_productName --app-version=$npm_package_version && cd dist/instatine-win32-ia32 && zip -ryq9 ../instatine-windows-${npm_package_version}.zip *",
+    "build:osx": "electron-packager . --overwrite --asar --out=dist --ignore='^/media/(?!Icon.icns$).*' --prune --platform=darwin --arch=x64 --icon=media/Icon.icns --app-bundle-id=com.bjarneoeverli.instatine --app-version=$npm_package_version && cd dist/instatine-darwin-x64 && zip -ryXq9 ../instatine-osx-${npm_package_version}.zip instatine.app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjarneo/instatine.git"
+  },
+  "keywords": [
+    "instagram",
+    "electron",
+    "desktop",
+    "application"
+  ],
+  "author": {
+    "name": "Bjarne Oeverli",
+    "email": "bjarne.oeverli@gmail.com",
+    "url": "bjarneo.codes"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bjarneo/instatine/issues"
+  },
+  "homepage": "https://github.com/bjarneo/instatine#readme",
+  "devDependencies": {
+    "electron-packager": "7.0.0",
+    "electron-prebuilt": "0.37.8",
+    "eslint": "2.9.0",
+    "eslint-config-vgno": "6.0.0"
+  }
+}
